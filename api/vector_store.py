@@ -19,7 +19,7 @@ def store_chunks(chunks):
     embeddings = model.encode([c["content"] for c in chunks]).tolist()
     points = [
         PointStruct(
-            id=str(i),
+            id=i,
             vector=embedding,
             payload={"content": chunk["content"], "source": chunk["source"]}
         )

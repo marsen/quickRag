@@ -1,6 +1,10 @@
 import os
+from dotenv import load_dotenv
 from openai import AzureOpenAI
-from app.vector_store import retrieve_context
+from api.vector_store import retrieve_context
+
+# 載入 .env 檔案
+load_dotenv()
 
 # 設定 Azure OpenAI 的 API URL 和金鑰
 endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")  # 例如 "https://your-resource-name.openai.azure.com/"
@@ -18,6 +22,7 @@ client = AzureOpenAI(
 def query_with_context(query):
     # 從向量資料庫檢索上下文
     contexts = retrieve_context(query)
+    print("Retrieved contexts:", contexts)
     prompt = f"""你是一個知識助手。根據以下內容回答問題：\n{chr(10).join(contexts)}\n問題：{query}"""
 
     # 呼叫 Azure OpenAI 的 Chat Completion API

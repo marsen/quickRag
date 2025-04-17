@@ -1,7 +1,13 @@
 fastapi
 uvicorn
 openai
+python-dotenv
 sentence-transformers
 PyMuPDF
-langchain
 qdrant-client
+python-multipart
+easyocr
+pillow
+langchain==0.3.23
+langchain-text-splitters==0.3.8
+numpy

@@ -4,15 +4,15 @@
 
 ```text
 rag-notebookllm-clone/
-├── app/
+├── api/
 │   ├── main.py               # FastAPI 主程式
 │   ├── rag.py                # RAG 處理流程
 │   ├── file_processor.py     # 文件上傳與分 chunk
 │   └── vector_store.py       # Chroma 向量資料庫操作
+├── app/                      <- Next.js 前端（略）
 ├── requirements.txt          # Python 相依套件
-├──  README.md                 # 使用說明（你正在看）
-├── frontend/                 <- Next.js 前端（略）
-└──Dockerfile                <- FastAPI Docker 建置
+├── README.md                # 使用說明（你正在看）
+└── docker-compose            <- FastAPI/F2E/DB/QDrant Docker 建置
 ```
 
 ## 🚀 快速開始（Local Setup）
@@ -38,12 +38,6 @@ python3 -m venv .venv
 
 # 啟用虛擬環境（macOS/Linux）
 source .venv/bin/activate
-```
-
-或 Windows
-
-```bash
-.venv\Scripts\activate
 ```
 
 ---
@@ -84,7 +78,7 @@ OPENAI_API_KEY=sk-xxxxxxx
 ### ▶️ 5. 啟動後端服務
 
 ```bash
-uvicorn app.main:app --reload
+uvicorn api.main:api --reload
 ```
 
 伺服器會啟動在 `http://127.0.0.1:8000`
@@ -102,5 +96,9 @@ curl -X POST -F "file=@yourfile.pdf" http://127.0.0.1:8000/upload
 ```
 
 **提出問題：**
+
 ```bash
 curl "http://127.0.0.1:8000/ask?q=這份文件的主題
+```
+
+(fin)
