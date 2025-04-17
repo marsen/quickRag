@@ -10,10 +10,10 @@ import numpy as np
 
 # 載入 .env 配置
 load_dotenv()
-
+# 確保環境變數已正確載入
+print("EASYOCR_MODULE_PATH:", os.getenv("EASYOCR_MODULE_PATH"))
 # 從環境變數中讀取 EasyOCR 緩存目錄
-EASYOCR_CACHE = os.getenv("EASYOCR_CACHE")  # 預設為 "./easyocr_cache"
-os.environ["EASYOCR_MODULE_PATH"] = EASYOCR_CACHE  # 設定 EasyOCR 緩存目錄
+os.environ["EASYOCR_MODULE_PATH"] = os.getenv("EASYOCR_MODULE_PATH")  # 預設為 "./easyocr_cache"  # 設定 EasyOCR 緩存目錄
 
 # 初始化 EasyOCR Reader
 reader = easyocr.Reader(['en', 'ch_tra'])  # 支持英文和繁體中文
