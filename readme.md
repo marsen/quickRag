@@ -1,4 +1,4 @@
-# RAG NotebookLLM-like System (FastAPI + ChromaDB + OpenAI)
+# RAG NotebookLLM-like System (FastAPI + QDrant + [OpenAI|Local Model])
 
 ## 📁 專案結構
 
