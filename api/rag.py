@@ -29,7 +29,7 @@ if model_provider == "azure":
 # 地端模型配置
 elif model_provider == "local":
     # 初始化 Hugging Face 模型
-    model_name = "distilgpt2"  # 使用 distilgpt2 作為地端模型
+    model_name = "EleutherAI/gpt-neo-125M"  # 或 "facebook/opt-350m"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForCausalLM.from_pretrained(model_name)
 
@@ -56,5 +56,13 @@ def query_with_context(query):
     elif model_provider == "local":
         # 使用 Hugging Face 模型生成回答
         inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=1024)
-        outputs = model.generate(inputs["input_ids"], max_new_tokens=200, num_return_sequences=1)
+        outputs = model.generate(
+            inputs["input_ids"],
+            max_new_tokens=200,          # 限制生成的最大輸出長度
+            temperature=1.0,             # 控制隨機性
+            top_p=0.9,                   # 使用 Nucleus Sampling
+            repetition_penalty=1.2,      # 懲罰重複內容
+            num_beams=3,                 # 使用 Beam Search
+            do_sample=True               # 啟用隨機抽樣
+        )
         return tokenizer.decode(outputs[0], skip_special_tokens=True)
